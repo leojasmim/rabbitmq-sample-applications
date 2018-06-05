@@ -12,8 +12,8 @@ namespace RabbitMQ.StandardQueue
         public static readonly int MIN_CARD_NUMBER = 10000000;
         public static readonly int MAX_CARD_NUMBER = 99999999;
 
-        public static void ShowPayment(Payment payment) {
-            Console.WriteLine($"Payment => Name: {payment.HolderName},Card: {payment.CardNumber}, Amount: {payment.AmountToPay}");
+        public static void ShowPayment(Payment payment, string origin) {
+            Console.WriteLine($"{origin}: Payment => Name: {payment.HolderName},Card: {payment.CardNumber}, Amount: {payment.AmountToPay}");
         }
 
         public static List<Payment> CreatePayments(int numberOfPayments) {
