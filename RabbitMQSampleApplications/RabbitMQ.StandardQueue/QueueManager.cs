@@ -24,5 +24,21 @@ namespace RabbitMQ.StandardQueue {
             _channel.BasicPublish("", QueueName, null, payment.Serialize());
             PaymentManager.ShowPayment(payment, "Publisher");
         }
+
+        public void Reciever() {
+
+            var consumer = new QueueingBasicConsumer(_channel);
+            int msgCount = GetMessageCount();
+
+            for (int i = 0; i < msgCount; i++) {
+                Payment payment = (Payment)consumer.Queue.Dequeue().Body.Deserialize(typeof(Payment));
+                PaymentManager.ShowPayment(payment, "Consumer");
+            }
+        }
+
+        private int GetMessageCount() {
+            var results = _channel.QueueDeclare(QueueName, true, false, false, null);
+            return (int) results.MessageCount;
+        }
     }
 }

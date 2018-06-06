@@ -19,6 +19,7 @@ namespace RabbitMQ.StandardQueue {
                 queueManager.SendMessage(payment);
             }
 
+            queueManager.Reciever();
         }
 
     }
