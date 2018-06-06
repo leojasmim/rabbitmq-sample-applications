@@ -30,6 +30,8 @@ namespace RabbitMQ.StandardQueue {
             var consumer = new QueueingBasicConsumer(_channel);
             int msgCount = GetMessageCount();
 
+            _channel.BasicConsume(QueueName, true, consumer);
+
             for (int i = 0; i < msgCount; i++) {
                 Payment payment = (Payment)consumer.Queue.Dequeue().Body.Deserialize(typeof(Payment));
                 PaymentManager.ShowPayment(payment, "Consumer");
